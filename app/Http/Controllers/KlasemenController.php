@@ -58,12 +58,10 @@ class KlasemenController extends Controller
 
             $klasemen[] = $klubData;
         }
-
-        // Mengurutkan array $klasemen berdasarkan poin secara menurun (descending).
         usort($klasemen, function ($a, $b) {
             return $b['Point'] - $a['Point'];
         });
 
-        return view('klasemen', compact('klasemen'));
+        return view('klasemen.index', compact('klasemen'));
     }
 }

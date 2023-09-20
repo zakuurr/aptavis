@@ -17,19 +17,33 @@ class SkorController extends Controller
 
     public function store (SkorStoreRequest $request)
     {
-
-        $data = $request->validated();
-
-        foreach ($request->inputs as $key => $value) {
-            if ($request->inputs[$key]['club_id_1'] === $request->inputs[$key]['club_id_2']) {
-                Alert::error('Data Skor', 'Ada nama klub yang sama dalam satu pertandingan');
-                return redirect()->back();
+        try{
+            $arrayClub = [];
+            foreach ($request->inputs as $club) {
+                $arrayClub[] = $club['club_id_1'];
+                $arrayClub[] = $club['club_id_2'];
             }
-            Skor::create($value);
-        }
 
-        Alert::success('Data Skor', 'Skor Berhasil Ditambahkan');
-        return redirect()->route('skor.index');
+            $duplicated = array_filter(array_count_values($arrayClub), function ($count) {
+                return $count > 1;
+            });
+
+            if (count($duplicated) > 0) {
+                Alert::error('Error', 'Club tidak bisa duplikat');
+                return redirect()->route('skor.index');
+            }
+
+            foreach ($request->inputs as $key => $value) {
+                Skor::create($value);
+            }
+
+            Alert::success('Success', 'Skor berhasil ditambahkan.')->autoClose(30000);
+
+            return redirect()->route('klasemen');
+        }  catch (\Exception $e){
+                Alert::error('Error', 'Skor gagal ditambahlan');
+                return redirect()->back();
+        }
 
     }
 }

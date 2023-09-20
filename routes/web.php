@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\ClubController;
+use App\Http\Controllers\KlasemenController;
 use App\Http\Controllers\SkorController;
 use Illuminate\Support\Facades\Route;
 
@@ -20,4 +21,8 @@ Route::post('/club', [ClubController::class, 'store'])->name('club.store');
 
 
 Route::get('/skor', [SkorController::class, 'index'])->name('skor.index');
+
 Route::post('/skor', [SkorController::class, 'store'])->name('skor.store');
+
+
+Route::get('/klasemen', [KlasemenController::class, 'klasemen'])->name('klasemen');

@@ -12,7 +12,7 @@
                     <a class="nav-link" href="/skor">Input Data Skor</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="/klasmen">Klasemen</a>
+                    <a class="nav-link" href="/klasemen">Klasemen</a>
                 </li>
             </ul>
         </div>
